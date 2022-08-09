@@ -1,0 +1,22 @@
+*, *:after , *:before{
+    box-sizing: border-box;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+
+#editor{
+    height: calc(100vh - 41px);
+    border: none;
+}
+.ql-toolbar.ql-snow {
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 1px solid #ccc;
+}
