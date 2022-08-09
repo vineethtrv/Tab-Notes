@@ -9,9 +9,47 @@
     <title>Tab Notes</title>
 </head>
 <body>
-    <div id="editor"></div>
+<div id="toolbar">
+    <!-- Font family -->
+    <select class="ql-font"></select>
+    <!-- Add font size dropdown -->
+    <select class="ql-size">
+        <option value="small"></option>
+        <option selected></option>
+        <option value="large"></option>
+        <option value="huge"></option>
+    </select>
+    <!-- Add Styles-->
+    <button class="ql-bold"></button>
+    <button class="ql-italic"></button>
+    <button class="ql-underline"></button>
+    <button class="ql-strike"></button>
+    <!-- Text Align -->
+    <select class="ql-align"></select>
+    <!-- Colors -->
+    <select class="ql-color"></select>
+    <select class="ql-background"></select>
+    <!-- Heading -->
+    <button class="ql-header" value="1"></button>
+    <button class="ql-header" value="2"></button>
+    <!-- List Styles-->
+    <button class="ql-list" value="ordered"></button>
+    <button class="ql-list" value="bullet"></button>
+
+    <!-- Block -->
+    <button class="ql-code-block"></button>
+    <button class="ql-link"></button>
 
 
+    <!-- Calculations -->
+    <button class="btn-calc">
+        <i class="icon-calculator"></i>
+    </button>
+
+</div>
+<div id="editor"></div>
+
+    
 
 
     <!-- Include the Quill library -->

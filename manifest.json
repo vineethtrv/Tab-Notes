@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "name": "My Extension",
+  "name": "Tab Notes",
   "version": "1.0.0",
   "chrome_url_overrides" : {
     "newtab": "tabNotes.html"
