@@ -44,3 +44,10 @@ window.addEventListener("storage", (event) => {
 
 // Restore data from previous
 restoreNotes();
+
+
+// Theme
+document.querySelector('.dropdown-toggle').addEventListener('click', () => {
+    document.querySelector('.dropdown-toggle').classList.toggle('open');
+});
+
