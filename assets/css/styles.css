@@ -2,20 +2,76 @@
     box-sizing: border-box;
 }
 
-html, body {
+body {
     margin: 0;
     padding: 0;
     overflow: hidden;
+    --text: #4c4c4c;
+    --toolbar: #ededed;
+    --dd-bg: #fefdfd;
     background: #fff;
-    color: #4c4c4c;
+    color: var(--text);
 }
+
+.dark {
+    background: #1a1f25;
+    --text: #fff;
+    --toolbar: #434548;
+    --dd-bg: #21252f;
+}
+.owl {
+    background: #1e263e;
+    --text: #fff;
+    --toolbar: #465872;
+    --dd-bg: #253450;
+}
+
+.quiet {
+    --text: #455343;
+    --toolbar: #cde2cd;
+    --dd-bg: #e8ece8;
+    background: #e6ede8;
+    color: var(--text);
+}
+
+.coffee {
+    --toolbar: #f5dca0;
+    --dd-bg: #faf1e3;
+    background: #fdeac8;
+}
+.Sky {
+    --text: #6b6161;
+    --toolbar: #c8e3f9;
+    --dd-bg: #e8f2fa;
+    background: #ebf6ff;
+}
+
+.board{
+    --text: #ffffff;
+    --toolbar: #596b59;
+    --dd-bg: #586658;
+    background: #3a493a;
+}
+
+
+.ql-snow .ql-picker{
+    color: inherit;
+}
+.ql-snow .ql-stroke{
+    stroke: var(--text);
+}
+.ql-snow .ql-fill,
+.ql-snow .ql-stroke.ql-fill{
+    fill: var(--text);
+}
+
 #editor{
     height: calc(100vh - 66px);
     border: none;
 }
 #toolbar {
     border: none;
-    border-bottom: 1px solid #ededed;
+    border-bottom: 1px solid var(--toolbar);
 }
 
 @media (min-width: 768px) {
@@ -34,6 +90,7 @@ html, body {
     height: 18px;
     display: inline-block;
     position: relative;
+    color: var(--text);
     border: 1px solid;
 }
 .icon-calc::after {
@@ -88,10 +145,10 @@ html, body {
     list-style: none;
     padding: 0;
     margin: 0;
-    background: #fff;
+    background: var(--dd-bg);
     box-shadow: 0 3px 8px #0002;
     z-index: 1000;
-    transition: 0.2s ease-in;
+    /* transition: 0.2s ease-in; */
     overflow: hidden;
     max-height: 0;
 }
@@ -101,13 +158,29 @@ html, body {
 }
 
 .dropdown-menu li {
-    padding: 6px 10px;
+    padding: 6px 10px 6px 30px;
     text-align: left;
     white-space: nowrap;
     min-width: 150px;
-    color: #4c4c4c;
-    transition: 0.2s ease-in;
+    color: var(--text);
+    position: relative;
 }
 .dropdown-menu li:hover {
     background: #0001;
+}
+.dropdown-menu li.active {
+    background: #0003;
+    pointer-events: none;
+}
+.dropdown-menu li.active::before{
+    content: '';
+    position: absolute;
+    width: 6px;
+    height: 12px;
+    color: #098ffc;
+    border-bottom: 2px solid;
+    border-right: 2px solid;
+    left: 11px;
+    top: 6px;
+    transform: rotate(45deg);
 }
