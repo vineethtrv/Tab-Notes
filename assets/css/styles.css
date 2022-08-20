@@ -2,6 +2,7 @@
     box-sizing: border-box;
 }
 
+
 body {
     margin: 0;
     padding: 0;
@@ -11,6 +12,7 @@ body {
     --dd-bg: #fefdfd;
     background: #fff;
     color: var(--text);
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 .dark {
@@ -183,4 +185,92 @@ body {
     left: 11px;
     top: 6px;
     transform: rotate(45deg);
+}
+
+
+#calculator{
+    display: none;
+    position: absolute;
+    left: 35px;
+    top: 57px;
+    width: 250px;
+    z-index: 10000;
+    background: var(--dd-bg);
+    box-shadow: 0 10px 15px #0001, 0 -10px 17px #0001;
+}
+#calculator.show{
+    display: block;
+}
+#calc-header {
+    position: relative;
+    display: flex;
+    padding: 4px 10px;
+    justify-content: space-between;
+    align-items: center;
+    cursor: move;
+}
+
+.btn-close {
+    border: none;
+    background: none;
+    outline: none;
+    box-shadow: none;
+    font-size: 22px;
+    padding: 0;
+    font-weight: 200;
+    opacity: 0.65;
+    cursor: pointer;
+    color: var(--text);
+}
+
+#calc-display {
+    width: 100%;
+    padding: 3px 15px;
+    margin-bottom: 10px;
+    height: 60px;
+    border: none;
+    outline: none;
+    box-shadow: none;
+    background: #0001;
+    text-align: right;
+    font-size: 20px;
+    color: var(--text);
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.calc-controls {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 10px;
+}
+.btn-calc {
+    height: 48px;
+    width: 48px;
+    border-radius: 26px;
+    border: none;
+    margin: 3px;
+    font-size: 20px;
+    background: #0004;
+    box-shadow: none;
+    color: var(--text);
+}
+
+.btn-cp {
+    background: #0001;
+}
+
+.btn-act {
+    background: #0008;
+}
+
+#enter {
+    width: 108px;
+}
+#clear{
+    width: 108px;
 }

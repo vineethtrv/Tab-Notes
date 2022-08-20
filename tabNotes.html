@@ -42,7 +42,7 @@
 
 
     <!-- Calculations -->
-    <button class="btn-calc">
+    <button class="btn-calc" onclick="toggleCalculator()">
         <i class="icon-calc"></i>
     </button>
     <button class="btn-theme dropdown-toggle">
@@ -61,6 +61,41 @@
 </div>
 <div id="editor"></div>
 
+<div id="calculator" class="show"> 
+    <header id="calc-header">
+        Calculator
+        <button class="btn-close" onclick="toggleCalculator()">
+            &times;
+        </button>
+    </header>
+    <input value="0" type="number" id="calc-display" >
+    <div class="calc-controls">
+        <button class="btn-calc btn-cp" id="clear">AC</button>
+        <button data-eval="/100" class="btn-calc btn-cp" id="btn-ps">%</button>
+        <button data-eval="/" class="btn-calc btn-act">÷</button>
+        
+        <button data-eval="7" class="btn-calc btn-nub">7</button>
+        <button data-eval="8" class="btn-calc btn-nub">8</button>
+        <button data-eval="9" class="btn-calc btn-nub">9</button>
+        <button data-eval="*" class="btn-calc btn-act">&times;</button>
+        
+        <button data-eval="4" class="btn-calc btn-nub">4</button>
+        <button data-eval="5" class="btn-calc btn-nub">5</button>
+        <button data-eval="6" class="btn-calc btn-nub">6</button>
+        <button data-eval="-" class="btn-calc btn-act">-</button>
+        
+        <button data-eval="1" class="btn-calc btn-nub">1</button>
+        <button data-eval="2" class="btn-calc btn-nub">2</button>
+        <button data-eval="3" class="btn-calc btn-nub">3</button>
+        <button data-eval="+" class="btn-calc btn-act">+</button>
+        
+        <button data-eval="0" class="btn-calc btn-nub zero">0</button>
+        <button data-eval="." class="btn-calc btn-nub">.</button>
+        <button class="btn-calc btn-act" id="enter">=</button>
+
+
+    </div>
+</div>
     
 
 
