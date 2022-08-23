@@ -241,6 +241,9 @@ body {
     font-size: 20px;
     color: var(--text);
 }
+#calc-display::placeholder{
+    color: var(--text);
+}
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
     -webkit-appearance: none;
