@@ -19,7 +19,7 @@ body {
     background: #1a1f25;
     --text: #fff;
     --toolbar: #434548;
-    --dd-bg: #21252f;
+    --dd-bg: #3c3e43;
 }
 .owl {
     background: #1e263e;
@@ -65,6 +65,11 @@ body {
 .ql-snow .ql-fill,
 .ql-snow .ql-stroke.ql-fill{
     fill: var(--text);
+}
+
+.ql-toolbar.ql-snow .ql-picker.ql-expanded .ql-picker-options {
+    background: var(--dd-bg);
+    border-color: #0002;
 }
 
 #editor{
@@ -266,6 +271,7 @@ input::-webkit-inner-spin-button {
 
 .btn-act {
     background: #0008;
+    color: #fff;
 }
 
 #enter {

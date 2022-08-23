@@ -119,9 +119,12 @@ function dragElement(dragEL) {
 
 
 // Toggle calculator
-const toggleCalculator = ()=> {
+document.querySelector('.btn-calculator').addEventListener('click', () => {
     calcEl.classList.toggle('show');
-}
+});
+document.querySelector('.btn-close').addEventListener('click', () => {
+    calcEl.classList.remove('show');
+});
 
 
 // Restore data from previous
@@ -148,14 +151,19 @@ document.querySelectorAll('.btn-calc').forEach(calcBtn => {
     // calcDisplayEl
     calcBtn.addEventListener('click', (e) => {
         let val = calcBtn.dataset.eval;
+        let operations = ['-','+', '*' , '/'];
         if(val){
+            let lastIndex = calcValue.length - 1;
+            let lastLatter = calcValue[lastIndex];
+            // Remove if lastIndex is operations
+            calcValue = operations.includes(lastLatter) && operations.includes(val) ? calcValue.substring(0, lastIndex) : calcValue; 
             calcValue = calcValue === 0? val : calcValue + val;
 
         }
 
         // Answer
         if(calcBtn.getAttribute('id') === 'enter'){
-            calcValue = eval(calcValue);
+            calculateValue()
         }
         // Clear calculate value
         if (calcBtn.getAttribute('id') === 'clear'){
@@ -163,6 +171,55 @@ document.querySelectorAll('.btn-calc').forEach(calcBtn => {
         }
 
         calcDisplayEl.value = calcValue;
-        console.log(calcValue)
+    });
+})
+
+
+
+
+
+const calculateValue = () => {
+    let numbers = calcValue.split(/\+|\-|\*|\//g);
+    let operators = calcValue.replace(/[0-9]|\./g, "").split("");
+    let nextVal = 0;
+    let currentVal = 0;
+    operators.forEach((op, i) => {
+        currentVal = i === 0 ? parseFloat(numbers[i]) : currentVal;
+        nextVal = parseFloat(numbers[1 + i]);
+        switch (op) {
+            case '+':
+                currentVal = currentVal + nextVal;
+                break;
+            case '-':
+                currentVal = currentVal - nextVal;
+                break;
+            case '*':
+                currentVal = currentVal * nextVal;
+                break;
+            case '/':
+                currentVal = currentVal / nextVal;
+                break;
+        }
     })
+    calcValue = currentVal;
+    calcDisplayEl.value = calcValue;
+}
+
+
+calcDisplayEl.addEventListener('keydown', e => {
+    let allowedKeys = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '-', '+', '*', '/', '.', 'Backspace'];    
+    // Get Answer if pressed Ender or equal
+    if (e.key == "Enter" || e.keyCode == 13 ||e.key == "=" ) {
+        calculateValue();
+        e.preventDefault()
+        return 
+    }   
+    if(!allowedKeys.includes(e.key)){
+        e.preventDefault()
+        return
+    }
+})
+
+calcDisplayEl.addEventListener('input', e=> {
+   calcValue = calcDisplayEl.value;
 })

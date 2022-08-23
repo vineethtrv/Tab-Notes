@@ -42,7 +42,7 @@
 
 
     <!-- Calculations -->
-    <button class="btn-calc" onclick="toggleCalculator()">
+    <button class="btn-calculator">
         <i class="icon-calc"></i>
     </button>
     <button class="btn-theme dropdown-toggle">
@@ -61,14 +61,14 @@
 </div>
 <div id="editor"></div>
 
-<div id="calculator" class="show"> 
+<div id="calculator"> 
     <header id="calc-header">
         Calculator
-        <button class="btn-close" onclick="toggleCalculator()">
+        <button class="btn-close">
             &times;
         </button>
     </header>
-    <input value="0" type="number" id="calc-display" >
+    <input value="0" type="text" id="calc-display" >
     <div class="calc-controls">
         <button class="btn-calc btn-cp" id="clear">AC</button>
         <button data-eval="/100" class="btn-calc btn-cp" id="btn-ps">%</button>
