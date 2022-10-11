@@ -42,17 +42,11 @@
 
     <button class="ql-clean"></button>
 
-
-
-
-    <!-- Calculations -->
-    <button class="btn-calculator">
-        <i class="icon-calc"></i>
-    </button>
-
     <!-- Theme -->
     <button class="btn-theme dropdown-toggle">
-        <span class="icon-theme"></span>
+        <span class="icon-theme">
+            <span class="icon-brush"></span>
+        </span>
         <ul class="dropdown-menu">
             <li class="active" data-value="paper-white">Paper White</li>
             <li data-value="dark">Dark</li>
@@ -61,49 +55,29 @@
             <li data-value="coffee">Coffee</li>
             <li data-value="Sky">Sky</li>
             <li data-value="board">Board</li>
+            <li data-value="custom">Custom</li>
         </ul>
     </button>
 
 </div>
 <div id="editor"></div>
 
-<div id="calculator"> 
-    <header id="calc-header">
-        Calculator
-        <button class="btn-close">
-            &times;
-        </button>
+<div id="custom-theme" class="popup">
+    <header class="popup-header">
+        <h4>Make your theme</h4>
+        <button class="close-popup">&times;</button>
     </header>
-    <input placeholder="0" type="text" id="calc-display" >
-    <div class="calc-controls">
-        <button class="btn-calc btn-cp" id="clear">AC</button>
-        <button data-eval="/100" class="btn-calc btn-cp" id="btn-ps">%</button>
-        <button data-eval="/" class="btn-calc btn-act">÷</button>
-        
-        <button data-eval="7" class="btn-calc btn-nub">7</button>
-        <button data-eval="8" class="btn-calc btn-nub">8</button>
-        <button data-eval="9" class="btn-calc btn-nub">9</button>
-        <button data-eval="*" class="btn-calc btn-act">&times;</button>
-        
-        <button data-eval="4" class="btn-calc btn-nub">4</button>
-        <button data-eval="5" class="btn-calc btn-nub">5</button>
-        <button data-eval="6" class="btn-calc btn-nub">6</button>
-        <button data-eval="-" class="btn-calc btn-act">-</button>
-        
-        <button data-eval="1" class="btn-calc btn-nub">1</button>
-        <button data-eval="2" class="btn-calc btn-nub">2</button>
-        <button data-eval="3" class="btn-calc btn-nub">3</button>
-        <button data-eval="+" class="btn-calc btn-act">+</button>
-        
-        <button data-eval="0" class="btn-calc btn-nub zero">0</button>
-        <button data-eval="." class="btn-calc btn-nub">.</button>
-        <button class="btn-calc btn-act" id="enter">=</button>
-
-
+    <div class="popup-body">
+        <div class="form-group">
+            <label>Background</label>
+            <input class="form-control" id="bg-color" type="color">
+        </div>
+        <div class="form-group">
+            <label>Font Color</label>
+            <input class="form-control" id="font-color" type="color">
+        </div>
     </div>
 </div>
-    
-
 
     <!-- Include the Quill library -->
     <script src="assets/js/quill.min.js"></script>

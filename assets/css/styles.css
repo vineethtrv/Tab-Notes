@@ -8,51 +8,38 @@ body {
     padding: 0;
     overflow: hidden;
     --text: #4c4c4c;
-    --toolbar: #ededed;
-    --dd-bg: #fefdfd;
-    background: #fff;
+    --note-bg: #fff;
+    background: var(--note-bg);
     color: var(--text);
     font-family: Arial, Helvetica, sans-serif;
 }
 
 .dark {
-    background: #1a1f25;
+    --note-bg: #333538;
     --text: #fff;
-    --toolbar: #434548;
-    --dd-bg: #3c3e43;
 }
 .owl {
-    background: #1e263e;
+    --note-bg: #1e263e;
     --text: #fff;
-    --toolbar: #465872;
-    --dd-bg: #253450;
 }
 
 .quiet {
     --text: #455343;
-    --toolbar: #cde2cd;
-    --dd-bg: #e8ece8;
-    background: #e6ede8;
+    --note-bg: #e6ede8;
     color: var(--text);
 }
 
 .coffee {
-    --toolbar: #f5dca0;
-    --dd-bg: #faf1e3;
-    background: #fdeac8;
+    --note-bg: #f8d494;
 }
 .Sky {
     --text: #6b6161;
-    --toolbar: #c8e3f9;
-    --dd-bg: #e8f2fa;
-    background: #ebf6ff;
+    --note-bg: #ebf6ff;
 }
 
 .board{
     --text: #ffffff;
-    --toolbar: #596b59;
-    --dd-bg: #586658;
-    background: #3a493a;
+    --note-bg: #3a493a;
 }
 
 
@@ -68,7 +55,7 @@ body {
 }
 
 .ql-toolbar.ql-snow .ql-picker.ql-expanded .ql-picker-options {
-    background: var(--dd-bg);
+    background: var(--note-bg);
     border-color: #0002;
 }
 
@@ -78,7 +65,7 @@ body {
 }
 #toolbar {
     border: none;
-    border-bottom: 1px solid var(--toolbar);
+    background: #0002;
 }
 
 @media (min-width: 768px) {
@@ -92,53 +79,70 @@ body {
     }
 }
 
-.icon-calc {
-    width: 14px;
-    height: 18px;
-    display: inline-block;
-    position: relative;
-    color: var(--text);
-    border: 1px solid;
-}
-.icon-calc::after {
-    content: '';
-    width: calc(100% - 2px);
-    height: 5px;
-    position: absolute;
-    left: 50%;
-    top: 1px;
-    transform: translate(-50%, 0%);
-    border: 1px solid;
-}
-
-.icon-calc::before {
-    content: '';
-    width: 2px;
-    height: 1px;
-    position: absolute;
-    left: 1px;
-    top: 8px;
-    background: currentColor;
-    box-shadow: 0px 2px, 0px 4px, 4px 0, 4px 2px, 4px 4px, 8px 0, 8px 2px, 8px 4px;
+.ql-snow.ql-toolbar button.btn-theme{
+    padding: 3px 0 0;
+    margin-left: 15px;
 }
 
 .icon-theme{
     display: inline-block;
-    border-radius: 50%;
-    height: 18px;
-    width: 18px;
-    overflow: hidden;
+    height: 20px;
+    width: 24px;
     position: relative;
+    border: 1px solid var(--text);
+    border-radius: 2px;
+}
+.icon-theme::before , .icon-theme::after{
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 4px;
+    width: 100%;
+    height: 1px;
+    color: var(--text);
+    background: currentColor;
 }
 .icon-theme::after{
+    width: 2px;
+    height: 2px;
+    border-radius: 50%;
+    left: 2px;
+    top: 1px;
+    box-shadow: 4px 0 ;
+}
+
+.icon-brush {
+    position: absolute;
+    left: 4px;
+    top: 7px;
+    width: 14px;
+    height: 5px;
+    color: var(--text);
+    background: linear-gradient(90deg, #f41100, #fffc00, #00ff1e, #00bdff);
+    border: 1px solid;
+    box-shadow: 0 1px 4px #0004;
+    border-radius: 1px;
+}
+.icon-brush::before {
     content: '';
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        border: 16px solid;
-        filter: blur(2px);
-        border-color: #f16033 #f5bc08 #098ffc #43dd06;
+    position: absolute;
+    border-right: 1px solid;
+    border-bottom: 1px solid;
+    left: 6px;
+    top: 1px;
+    width: 8px;
+    height: 5px;
+}
+
+.icon-brush:after {
+    content: '';
+    position: absolute;
+    background: var(--note-bg);
+    width: 3px;
+    height: 8px;
+    left: 5px;
+    top: 6px;
+    border: 1px solid;
 }
 
 .dropdown-toggle {
@@ -152,7 +156,7 @@ body {
     list-style: none;
     padding: 0;
     margin: 0;
-    background: var(--dd-bg);
+    background: var(--note-bg);
     box-shadow: 0 3px 8px #0002;
     z-index: 1000;
     /* transition: 0.2s ease-in; */
@@ -175,9 +179,11 @@ body {
 .dropdown-menu li:hover {
     background: #0001;
 }
+.dropdown-menu li.active:not([data-value="custom"]) {
+    pointer-events: none;
+}
 .dropdown-menu li.active {
     background: #0003;
-    pointer-events: none;
 }
 .dropdown-menu li.active::before{
     content: '';
@@ -192,94 +198,58 @@ body {
     transform: rotate(45deg);
 }
 
-
-#calculator{
+.popup {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50% , -50% );
+    width: 320px;
+    background: var(--note-bg);
+    box-shadow: 0 10px 10px rgba(0, 0, 0, 0.25);
     display: none;
-    position: absolute;
-    left: 35px;
-    top: 57px;
-    width: 250px;
-    z-index: 10000;
-    background: var(--dd-bg);
-    box-shadow: 0 10px 15px #0001, 0 -10px 17px #0001;
 }
-#calculator.show{
+.popup.show {
     display: block;
 }
-#calc-header {
-    position: relative;
+.popup-header {
+    padding: 10px 15px;
     display: flex;
-    padding: 4px 10px;
     justify-content: space-between;
     align-items: center;
-    cursor: move;
+    background:  #0002;
 }
-
-.btn-close {
-    border: none;
-    background: none;
-    outline: none;
-    box-shadow: none;
-    font-size: 22px;
-    padding: 0;
-    font-weight: 200;
-    opacity: 0.65;
-    cursor: pointer;
-    color: var(--text);
-}
-
-#calc-display {
-    width: 100%;
-    padding: 3px 15px;
-    margin-bottom: 10px;
-    height: 60px;
-    border: none;
-    outline: none;
-    box-shadow: none;
-    background: #0001;
-    text-align: right;
-    font-size: 20px;
-    color: var(--text);
-}
-#calc-display::placeholder{
-    color: var(--text);
-}
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-    -webkit-appearance: none;
+.popup-header h4{
     margin: 0;
+    font-size: 16px;
 }
-
-.calc-controls {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    padding: 10px;
-}
-.btn-calc {
-    height: 48px;
-    width: 48px;
-    border-radius: 26px;
+.close-popup {
+    background: none;
     border: none;
-    margin: 3px;
-    font-size: 20px;
-    background: #0004;
-    box-shadow: none;
     color: var(--text);
+    font-size: 32px;
+    padding: 0;
+    cursor: pointer;
+    transform: scale(0.8);
+    transition: 0.3s ease-in;
+}
+.close-popup:hover {
+    transform: scale(1.2);
 }
 
-.btn-cp {
-    background: #0001;
+.popup-body {
+    padding: 20px;
 }
 
-.btn-act {
-    background: #0008;
-    color: #fff;
+.form-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
 }
 
-#enter {
-    width: 108px;
+label {
+    flex: 1;
 }
-#clear{
-    width: 108px;
+.form-control{
+    width: 32px;
+    height: 32px;
 }
