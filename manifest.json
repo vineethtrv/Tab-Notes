@@ -2,7 +2,14 @@
   "manifest_version": 3,
   "name": "Tab Notes",
   "version": "1.0.0",
+  "description": "Tab Note will help you to create quick notes on browser tab. it is easy to create and access also.",
   "chrome_url_overrides" : {
     "newtab": "tabNotes.html"
+  },
+  "icons": {
+    "16": "assets/images/tab_note_16x16.png",
+    "32": "assets/images/tab_note_32x32.png",
+    "48": "assets/images/tab_note_48x48.png",
+    "128": "assets/images/Tab_Note_Logo_128x128.png"
   }
 }
