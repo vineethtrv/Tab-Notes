@@ -28,6 +28,42 @@ quill.on('text-change', function () {
 
 
 
+
+
+/**
+ * Draw Shapes
+ * 
+ * */ 
+
+
+// Assign Drawing shapes action to buttons
+document.querySelectorAll('.btn-draw-shape').forEach(shapeBtn =>{
+
+    shapeBtn.addEventListener('click', () => {
+        if (document.querySelector('.btn-draw-shape.active')){
+            document.querySelector('.btn-draw-shape.active').classList.remove('active');
+        }
+        shapeBtn.classList.add('active');
+        document.querySelector('#editor').classList.add('isDrawing');
+        draw(shapeBtn.dataset.shape);
+
+    });
+});
+
+
+
+
+
+
+
+
+
+
+/**
+ * Theme settings
+ * 
+ * */ 
+
 // Theme
 document.querySelector('.dropdown-toggle').addEventListener('click', () => {
     document.querySelector('.dropdown-toggle').classList.toggle('open');
@@ -105,6 +141,12 @@ restoreTheme = () => {
 }
 
 
+
+/**
+ * Lifecycle
+ * EVENTs
+ * 
+ * */ 
 
 
 

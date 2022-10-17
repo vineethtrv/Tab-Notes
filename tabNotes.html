@@ -13,78 +13,106 @@
     <title>Tab Notes</title>
 </head>
 <body>
-<div id="toolbar">
-    <!-- Font family -->
-    <select class="ql-font"></select>
-    <!-- Add font size dropdown -->
-    <select class="ql-size">
-        <option value="small"></option>
-        <option selected></option>
-        <option value="large"></option>
-        <option value="huge"></option>
-    </select>
-    <!-- Add Styles-->
-    <button class="ql-bold"></button>
-    <button class="ql-italic"></button>
-    <button class="ql-underline"></button>
-    <button class="ql-strike"></button>
-    <!-- Text Align -->
-    <select class="ql-align"></select>
-    <!-- Colors -->
-    <select class="ql-color"></select>
-    <select class="ql-background"></select>
-    <!-- Heading -->
-    <button class="ql-header" value="1"></button>
-    <button class="ql-header" value="2"></button>
-    <!-- List Styles-->
-    <button class="ql-list" value="ordered"></button>
-    <button class="ql-list" value="bullet"></button>
+    <div id="toolbar">
+        <!-- Font family -->
+        <select class="ql-font"></select>
+        <!-- Add font size dropdown -->
+        <select class="ql-size">
+            <option value="small"></option>
+            <option selected></option>
+            <option value="large"></option>
+            <option value="huge"></option>
+        </select>
+        <!-- Add Styles-->
+        <button class="ql-bold"></button>
+        <button class="ql-italic"></button>
+        <button class="ql-underline"></button>
+        <button class="ql-strike"></button>
+        <!-- Text Align -->
+        <select class="ql-align"></select>
 
-    <!-- Block -->
-    <button class="ql-code-block"></button>
-    <button class="ql-link"></button>
+        <!-- Heading -->
+        <button class="ql-header" value="1"></button>
+        <button class="ql-header" value="2"></button>
+        <!-- List Styles-->
+        <button class="ql-list" value="ordered"></button>
+        <button class="ql-list" value="bullet"></button>
 
-    <button class="ql-clean"></button>
+        <!-- Block -->
+        <button class="ql-code-block"></button>
+        <button class="ql-link"></button>
 
-    <!-- Theme -->
-    <button class="btn-theme dropdown-toggle">
-        <span class="icon-theme">
-            <span class="icon-brush"></span>
+        <button class="ql-clean"></button>
+
+
+        <!-- Shapes -->
+        <button class="btn-draw-shape" data-shape="rect"></button>
+        <button class="btn-draw-shape" data-shape="rounded"></button>
+        <button class="btn-draw-shape" data-shape="ellipse"></button>
+        <button class="btn-draw-shape" data-shape="line"></button>
+        <button class="btn-draw-shape" data-shape="arrow"></button>
+
+
+        <!-- Colors -->
+        <select class="ql-color"></select>
+        
+        <span class="stroke-size">
+            <b>Stroke Size:</b>
+            <input id="stroke-size-control" value="1" type="number" min="0" max="30">
         </span>
-        <ul class="dropdown-menu">
-            <li class="active" data-value="paper-white">Paper White</li>
-            <li data-value="dark">Dark</li>
-            <li data-value="owl">Owl</li>
-            <li data-value="quiet">Quiet</li>
-            <li data-value="coffee">Coffee</li>
-            <li data-value="Sky">Sky</li>
-            <li data-value="board">Board</li>
-            <li data-value="custom">Custom</li>
-        </ul>
-    </button>
 
-</div>
-<div id="editor"></div>
 
-<div id="custom-theme" class="popup">
-    <header class="popup-header">
-        <h4>Make your theme</h4>
-        <button class="close-popup">&times;</button>
-    </header>
-    <div class="popup-body">
-        <div class="form-group">
-            <label>Background</label>
-            <input class="form-control" id="bg-color" type="color">
-        </div>
-        <div class="form-group">
-            <label>Font Color</label>
-            <input class="form-control" id="font-color" type="color">
+        <select class="ql-background"></select>
+
+
+
+        <!-- Theme -->
+        <button class="btn-theme dropdown-toggle">
+            <span class="icon-theme">
+                <span class="icon-brush"></span>
+            </span>
+            <ul class="dropdown-menu">
+                <li class="active" data-value="paper-white">Paper White</li>
+                <li data-value="dark">Dark</li>
+                <li data-value="owl">Owl</li>
+                <li data-value="quiet">Quiet</li>
+                <li data-value="coffee">Coffee</li>
+                <li data-value="Sky">Sky</li>
+                <li data-value="board">Board</li>
+                <li data-value="custom">Custom</li>
+            </ul>
+        </button>
+
+    </div>
+
+
+    <!-- Editor -->
+    <div id="editor"></div>
+
+
+
+    <!-- Custom Theme Popup -->
+    <div id="custom-theme" class="popup">
+        <header class="popup-header">
+            <h4>Make your theme</h4>
+            <button class="close-popup">&times;</button>
+        </header>
+        <div class="popup-body">
+            <div class="form-group">
+                <label>Background</label>
+                <input class="form-control" id="bg-color" type="color">
+            </div>
+            <div class="form-group">
+                <label>Font Color</label>
+                <input class="form-control" id="font-color" type="color">
+            </div>
         </div>
     </div>
-</div>
+    <!--End Custom theme popup  -->
 
     <!-- Include the Quill library -->
     <script src="assets/js/quill.min.js"></script>
+    <script src="assets/js/shape.js"></script>
     <script src="assets/js/app.js"></script>
 </body>
 </html>
