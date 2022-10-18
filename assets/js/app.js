@@ -1,5 +1,6 @@
 let newNotes = '';
 let theme = '';
+let shapeCollection = [];
 const customThemeEl = document.getElementById('custom-theme');
 var quill = new Quill('#editor', {
       theme: 'snow',
@@ -29,12 +30,10 @@ quill.on('text-change', function () {
 
 
 
-
 /**
  * Draw Shapes
  * 
  * */ 
-
 
 // Assign Drawing shapes action to buttons
 document.querySelectorAll('.btn-draw-shape').forEach(shapeBtn =>{
@@ -51,10 +50,57 @@ document.querySelectorAll('.btn-draw-shape').forEach(shapeBtn =>{
 });
 
 
+const saveShape = ()=> {
+    localStorage.setItem('shapes', JSON.stringify(shapeCollection));
+}
+
+const setShapeStore = (shapeId)=> {
+    const shape = document.getElementById(shapeId);
+    let text = document.querySelector(`#${shapeId} textarea`) ? document.querySelector(`#${shapeId} textarea`).value : '';
+    let type = shape.className.replace('shape ', '');
+    let shapeData = {
+        id: shapeId,
+        type,
+        text,
+        style: shape.getAttribute('style')
+    }
+
+    // Check Shape is already stored
+    if (shapeCollection.filter(item => item.id === shapeData.id).length){
+        // Update shape collection
+        shapeCollection = shapeCollection.map(item => item.id === shapeData.id ? shapeData : item);
+    } else {
+        // Add new shape to collection
+        shapeCollection.push(shapeData);
+    }
+    saveShape();
+}
+
+const removeShapeStore = (shapeId)=> {
+    // Check Shape is available on storage
+    if (shapeCollection.filter(item => item.id === shapeId).length){
+        // remove shape from collection
+        shapeCollection = shapeCollection.filter(item => item.id !== shapeId);
+    } 
+    saveShape();
+}
 
 
 
 
+
+// Restore the previous Shapes 
+const restoreShapes = () => {
+    shapeStore = localStorage.getItem('shapes');
+    if (shapeStore) {
+        shapeCollection = JSON.parse(shapeStore);
+        if (shapeCollection.length) {
+            // Clear shape over lapping 
+            document.querySelectorAll('.shape').forEach(shp => shp.remove());
+            drawShape();
+        }
+    }
+}
 
 
 
@@ -143,20 +189,20 @@ restoreTheme = () => {
 
 
 /**
- * Lifecycle
+ * Sync Notes
  * EVENTs
  * 
  * */ 
 
 
-
-
 // Restore data from previous
 restoreNotes();
 
+// Restore shape
+restoreShapes();
+
 // Theme restore
 restoreTheme();
-
 
 // Check tabs are sync with Notes
 window.addEventListener("storage", (event) => {
@@ -166,5 +212,8 @@ window.addEventListener("storage", (event) => {
     }
     if (event.key === 'theme') {
         restoreTheme();
+    }
+    if (event.key === 'shapes') {
+        restoreShapes();
     }
 })

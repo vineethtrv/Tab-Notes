@@ -6,6 +6,8 @@ let isDrawing = false;
 let shapeType = '';
 let selectedShape = null;
 let isStartDrawingLCH = false;
+let isSelected = false;
+
 
 
 
@@ -23,30 +25,37 @@ function draw(model){
 }
 
 function isLine(){
-    return shapeType === 'line' || shapeType === 'arrow' || shapeType === 'selection-box';
+    return shapeType === 'line' || shapeType === 'arrow' || shapeType === 'selection-box'
 }
 
 function getFillColor() {
     document.querySelectorAll('.ql-picker-item').forEach(colorPicker => {
         colorPicker.addEventListener('click', e => {
-            let color = e.target.dataset.value;
-            let isBgClrPicker =  e.target.parentElement.parentElement.classList.contains('ql-background');
-            let  selectedShapeStyle = selectedShape.getAttribute('style');
-
-            // Change backgroundColor
-            if (isBgClrPicker){
-                selectedShape.style = `${selectedShapeStyle} background-color: ${color}`
-            } else {
-                selectedShape.style = `${selectedShapeStyle} --stroke-color: ${color}`
+            if (isSelected){
+                let color = e.target.dataset.value;
+                let isBgClrPicker =  e.target.parentElement.parentElement.classList.contains('ql-background');
+                let  selectedShapeStyle = selectedShape.getAttribute('style');
+    
+                // Change backgroundColor
+                if (isBgClrPicker){
+                    selectedShape.style = `${selectedShapeStyle} background-color: ${color}`
+                } else {
+                    selectedShape.style = `${selectedShapeStyle} --stroke-color: ${color}`
+                }
+    
+                // Store Shape Data
+                setShapeStore(selectedShape.id)
             }
         });
     })
 }
 
 strokeControlEl.addEventListener('input', e => {
-    if (selectedShape){
+    if (selectedShape && isSelected){
         let selectedShapeStyle = selectedShape.getAttribute('style');
         selectedShape.style = `${selectedShapeStyle} --stroke-size: ${e.target.value}px`;
+        // Store Shape Data
+        setShapeStore(selectedShape.id)
     }
 })
 
@@ -118,26 +127,26 @@ function createShape() {
                 angle = Math.PI - Math.atan2(-y, x),
                 deg  =(angle * 180.0) / Math.PI;
 
-                if(90 <= deg &&  deg <= 245){
-                    shape.dataset.rotate = 'true'
-                } else {
-                    shape.dataset.rotate = 'false'
-                }
+            var sx = (originX + releaseX) / 2,
+                sy = (originY + releaseY) / 2;
+
+            var cx = sx - angle / 2,
+                cy = sy;
 
 
             shape.style = `
-                top: ${originY}px;
-                left: ${originX}px;
+                top: ${cy}px;
+                left: ${cx}px;
                 width: ${width}px;
-                transform: rotate(${deg}deg);
+                transform: translate(-50%, -50%) rotate(${deg}deg);
             `
         } 
         
         // All other shapes should  be drawn using  the default
         else{
             shape.style = `
-                top: ${originY}px;
-                left: ${originX}px;
+                top: ${originY + (height / 2)}px;
+                left: ${originX + (width/2)}px;
                 width: ${width}px;    
                 height: ${height}px;
             `
@@ -156,6 +165,9 @@ function createShape() {
             document.querySelector('.btn-draw-shape.active').classList.remove('active');
         }
         document.querySelector('#editor').classList.remove('isDrawing');
+        
+        // Store Shape Data
+        setShapeStore(shape.id)
 
         document.onmouseup = null;
         document.onmousemove = null;
@@ -169,6 +181,10 @@ function createShape() {
  * */ 
 function autoGrowingTextField(e) {
     e.target.parentElement.dataset.replicatedValue = e.target.value;
+
+    // Store Shape Data
+    setShapeStore(e.target.parentElement.parentElement.id)
+
 }
 
 
@@ -179,9 +195,16 @@ function autoGrowingTextField(e) {
  * */ 
 
 
-function selectBox(e){
-    e.stopPropagation();
-    const target = selectedShape = e.target;
+function selectBox(event){
+    event.stopPropagation();
+    let target = event.target;
+    // False click target changes
+    if (target.classList.contains('selection-box')){
+         target = selectedShape = event.target.parentElement;
+    } else {
+        selectedShape = target;
+    }
+
     shapeType = target.classList.value.replace('shape ', ''); // Find shape type
     
     // Update Stroke control values
@@ -200,29 +223,67 @@ function selectBox(e){
         selectionEl.setAttribute('data-target', target.id);  
         selectionEl.className = 'selection-box';
 
-        // Resize Top Left
-        const resizeTopLeft = document.createElement('div');
-        resizeTopLeft.className = 'resizer top-left';
-        selectionEl.appendChild(resizeTopLeft);
 
-        // Resize Top Right
-        const resizeTopRight = document.createElement('div');
-        resizeTopRight.className = 'resizer top-right';
-        selectionEl.appendChild(resizeTopRight);
+        // rotateEl
+        const rotateEl = document.createElement('div');
+        rotateEl.className = 'dot rotate';
+        rotateEl.id = 'rotate';
+        selectionEl.appendChild(rotateEl);
 
-        // Resize Bottom- Left
-        const resizeBottomLeft = document.createElement('div');
-        resizeBottomLeft.className = 'resizer bottom-left';
-        selectionEl.appendChild(resizeBottomLeft);
+        // left-mid
+        const leftMidEl = document.createElement('div');
+        leftMidEl.className = 'dot left-mid';
+        leftMidEl.id = 'left-mid';
+        selectionEl.appendChild(leftMidEl);
 
-        // Resize Bottom Right
-        const resizeBottomRight = document.createElement('div');
-        resizeBottomRight.className = 'resizer bottom-right';
-        selectionEl.appendChild(resizeBottomRight);
+        // right-mid
+        const rightMidEl = document.createElement('div');
+        rightMidEl.className = 'dot right-mid';
+        rightMidEl.id = 'right-mid';
+        selectionEl.appendChild(rightMidEl); 
+
+        if (!isLine()) {
+            // left-top
+            const leftTopEl = document.createElement('div');
+            leftTopEl.className = 'dot left-top';
+            leftTopEl.id = 'left-top';
+            selectionEl.appendChild(leftTopEl);
+    
+            // left-Bottom
+            const leftBottomEl = document.createElement('div');
+            leftBottomEl.className = 'dot left-bottom';
+            leftBottomEl.id = 'left-bottom';
+            selectionEl.appendChild(leftBottomEl);
+    
+            // top-mid
+            const topMidEl = document.createElement('div');
+            topMidEl.className = 'dot top-mid';
+            topMidEl.id = 'top-mid';
+            selectionEl.appendChild(topMidEl);
+    
+            // bottom-mid
+            const bottomMidEl = document.createElement('div');
+            bottomMidEl.className = 'dot bottom-mid';
+            bottomMidEl.id = 'bottom-mid';
+            selectionEl.appendChild(bottomMidEl);
+    
+            // right-bottom
+            const rightBottomEl = document.createElement('div');
+            rightBottomEl.className = 'dot right-bottom';
+            rightBottomEl.id = 'right-bottom';
+            selectionEl.appendChild(rightBottomEl);
+    
+            // right-Top
+            const rightTopEl = document.createElement('div');
+            rightTopEl.className = 'dot right-top';
+            rightTopEl.id = 'right-top';
+            selectionEl.appendChild(rightTopEl);
+        }
 
         target.appendChild(selectionEl);
 
         // Add Selection Styles to body
+        isSelected = true;
         document.body.classList.add('is-selected');
 
         // Remove selection on double click
@@ -233,13 +294,14 @@ function selectBox(e){
             }
             e.target.remove();
             // Remove selection style 
+            isSelected = false;
             document.body.classList.remove('is-selected');
         }
 
-        // Enable resizing on
-        resizeShape(target);
-        // Enable Moving 
-        moveShape(selectionEl)
+       
+        // Enable Shape transformation 
+        // Move resize rotate
+        transformShape(target);
     }
 
     
@@ -247,155 +309,29 @@ function selectBox(e){
 
 
 
+const drawShape = ()=> {
+    shapeCollection.forEach(shapeItem => {
+      const shape =  document.createElement('div');
+        shape.id = shapeItem.id;
+        shape.className = 'shape ' + shapeItem.type;
+        shape.style = shapeItem.style;
 
-/**
- * Move Element
- * 
- * */ 
-function moveShape(movableEl)   {
-    let originX, originY, moveX, moveY = 0;
-    movableEl.onmousedown = moveMouseDown;
-    TARGET = movableEl.parentElement;
-
-    
-    function moveMouseDown(e) {
-        e = e || window.event;
-        e.preventDefault();
-        e.stopPropagation();
-        // get the mouse cursor position at startup:
-        originX = e.clientX;
-        originY = e.clientY;
-        document.onmouseup = closeMoveElement;
-        // call a function whenever the cursor moves:
-        document.onmousemove = elementMove;
-    }
-
-    function elementMove(e) {
-        e = e || window.event;
-        e.preventDefault();
-        e.stopPropagation();
-        // calculate the new cursor position:
-        moveX = originX - e.clientX;
-        moveY = originY - e.clientY;
-        originX = e.clientX;
-        originY = e.clientY;
-
-        // set the element's new position:
-        let x = (TARGET.offsetLeft - moveX)
-        let y = (TARGET.offsetTop - moveY);
-
-        // Prevent move outer window
-        if (x > 0 && x <= (canvas.scrollWidth - TARGET.clientWidth) || isLine()) {
-            TARGET.style.left = `${x}px`;
+        // Create textarea on non-line shape
+        if (shapeItem.type !== 'line' && shapeItem.type !== 'arrow') {
+            const texWrapper = document.createElement('div');
+            texWrapper.className = "text-wrapper";
+            const textArea = document.createElement('textarea');
+            textArea.value = shapeItem.text;
+            texWrapper.appendChild(textArea);
+            shape.appendChild(texWrapper);
+            textArea.oninput = autoGrowingTextField;
         }
-        if (y > 0 && y <= (canvas.scrollHeight - TARGET.clientHeight || isLine())) {
-            TARGET.style.top = `${y}px`;
-        }
-        
-    }
 
-    function closeMoveElement() {
-        // stop moving when mouse button is released:
-        document.onmouseup = null;
-        document.onmousemove = null;
-    }
-}
-
-
-
-
-
-/***
- * Resize Shape
- * 
- * */ 
-function resizeShape(TARGET) {
-// const TARGET = document.querySelector(div);
-
-const RESIZERS = document.querySelectorAll(`#${TARGET.id} .resizer`);
-const MIN_SIZE = 20;
-let original_width = 0;
-let original_height = 0;
-let original_x = 0;
-let original_y = 0;
-let original_mouse_x = 0;
-let original_mouse_y = 0;
-for (let i = 0; i < RESIZERS.length; i++) {
-    const currentResizer = RESIZERS[i];
-    currentResizer.addEventListener('mousedown', function (e) {
-        e.preventDefault();
-        e.stopPropagation();
-        original_width = parseFloat(getComputedStyle(TARGET, null).getPropertyValue('width').replace('px', ''));
-        original_height = parseFloat(getComputedStyle(TARGET, null).getPropertyValue('height').replace('px', ''));
-        original_x = TARGET.getBoundingClientRect().left;
-        original_y = TARGET.getBoundingClientRect().top;
-        original_mouse_x = e.pageX;
-        original_mouse_y = e.pageY;
-        window.addEventListener('mousemove', resize)
-        window.addEventListener('mouseup', stopResize)
+        // add shape 
+        canvas.appendChild(shape);
+        shape.addEventListener('click', selectBox);
     })
-
-    function resize(e) {
-        if (currentResizer.classList.contains('bottom-right')) {
-            const width = original_width + (e.pageX - original_mouse_x);
-            const height = original_height + (e.pageY - original_mouse_y)
-            if (width > MIN_SIZE) {
-                TARGET.style.width = width + 'px'
-            }
-            if (height > MIN_SIZE && !isLine()) {
-                TARGET.style.height = height + 'px'
-            }
-        }
-        else if (currentResizer.classList.contains('bottom-left')) {
-            const height = original_height + (e.pageY - original_mouse_y)
-            const width = original_width - (e.pageX - original_mouse_x)
-            if (height > MIN_SIZE && !isLine()) {
-                TARGET.style.height = height + 'px'
-            }
-            if (width > MIN_SIZE) {
-                TARGET.style.width = width + 'px';
-                if(!isLine()){
-                    TARGET.style.left = original_x + (e.pageX - original_mouse_x) + 'px'
-                }
-            }
-        }
-        else if (currentResizer.classList.contains('top-right')) {
-            const width = original_width + (e.pageX - original_mouse_x)
-            const height = original_height - (e.pageY - original_mouse_y)
-            if (width > MIN_SIZE) {
-                TARGET.style.width = width + 'px'
-            }
-            if (height > MIN_SIZE && !isLine()) {
-                TARGET.style.height = height + 'px'
-                TARGET.style.top = original_y + (e.pageY - original_mouse_y) + 'px'
-            }
-        }
-        else {
-            const width = original_width - (e.pageX - original_mouse_x)
-            const height = original_height - (e.pageY - original_mouse_y)
-            if (width > MIN_SIZE) {
-                TARGET.style.width = width + 'px'
-                if(!isLine()) {
-                    TARGET.style.left = original_x + (e.pageX - original_mouse_x) + 'px'
-                }
-            }
-            if (height > MIN_SIZE && !isLine()) {
-                TARGET.style.height = height + 'px'
-                TARGET.style.top = original_y + (e.pageY - original_mouse_y) + 'px'
-            }
-        }
-    }
-
-    function stopResize() {
-        window.removeEventListener('mousemove', resize)
-    }
 }
-}
-
-
-
-
-
 
 
 
@@ -409,15 +345,22 @@ canvas.addEventListener('click', function (e) {
     if(selectedShape && !selectedShape.contains(e.target) && document.querySelector('.selection-box')){
         document.querySelector('.selection-box').remove();
         // Remove selection style 
+        isSelected = false;
         document.body.classList.remove('is-selected');
     }
 });
 
+// Remove Shape from Canvas
 window.addEventListener("keydown", function (o) {
     if (o.keyCode === 46 || o.keyCode === 8) {
         if (document.querySelector('.selection-box')) {
-            document.querySelector('.selection-box').parentElement.remove()
+            document.querySelector('.selection-box').parentElement.remove();
+
+            // remove shape from Store
+            removeShapeStore(selectedShape.id)
+
             // Remove selection style 
+            isSelected = false;
             document.body.classList.remove('is-selected');
         }
     }

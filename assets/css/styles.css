@@ -99,7 +99,9 @@ body {
     align-items: center;
     margin: 0 10px;
     justify-content: space-around;
-    width: 120px;
+    width: 130px;
+    font-size: 12px;
+    font-family: inherit;
 }
 
 #stroke-size-control{
@@ -107,6 +109,9 @@ body {
     background: var(--note-bg);
     box-shadow: none;
     outline: none;
+    color: var(--text);
+    font-size: inherit;
+    padding: 2px 0 2px 4px;
 }
 
 /* Change Color picker button Icon */
@@ -444,6 +449,9 @@ label {
     transform-origin: left top;
     display: grid;
     place-items: center;
+    transform: translate(-50%, -50%);
+    transform-origin: center center;
+    user-select: none;
 }
 
 .ellipse {
@@ -486,42 +494,17 @@ label {
 }
 
 .line .selection-box,
-.arrow .selection-box{
-    height: 200%;
+.arrow .selection-box {
+    height: calc(200% + calc(var(--stroke-size) * 2));
     transform: translateY(-50%);
     top: 50%;
 }
 
 .arrow .selection-box {
-    width: calc(100% + calc(var(--stroke-size) * 2.75));
+    width: calc(100% + calc(var(--stroke-size) * 3));
+    height: calc(100% + calc(var(--stroke-size) * 10));
 }
 
-
-.line .resizer:not(.top-right),
-.arrow .resizer:not(.top-right) {
-    display: none;
-}
-
-.line .resizer.top-right,
-.arrow .resizer.top-right {
-    cursor: nwse-resize;
-    top: 50%;
-    transform: translateY(-50%);
-}
-
-/* Rotated */
-[data-rotate="true"] .resizer.top-right {
-    display: none;
-}
-
-[data-rotate="true"] .resizer.top-left {
-    cursor: nesw-resize;
-    right: -5px;
-    left: auto;
-    display: block;
-    top: 50%;
-    transform: translateY(-50%);
-}
 .text-wrapper {
     display: grid;
     max-width: 60%;
@@ -554,49 +537,103 @@ label {
     grid-area: 1 / 1 / 2 / 2;
 }
 
+
+/*  */
+
 .selection-box {
-    width: 100%;
-    height: 100%;
-    outline: 2px solid #00b6ff;
+    --selection-color: #00b6ff;
+    width: calc(100% + calc(var(--stroke-size) * 2));
+    height: calc(100% + calc(var(--stroke-size) * 2));
+    outline: 2px solid var(--selection-color);
     background: #00b7ff10;
     cursor: move;
     z-index: 10;
     outline-offset: 1px;
-    top: 0;
-    left: 0;
+    top: calc(var(--stroke-size) * - 1);
+    left: calc(var(--stroke-size) * - 1);
     position: absolute;
-    transform: rotate(var(--rotate));
+    user-select: none;
 }
 
-.resizer {
-    width: 10px;
+.dot {
     height: 10px;
-    border-radius: 50%;
-    background: white;
-    border: 3px solid #00b6ff;
+    width: 10px;
+    background-color: #FFF;
     position: absolute;
+    border: 1px solid var(--selection-color);
+    user-select: none;
+    --offset: -7px;
+    cursor: auto;
 }
 
-.resizer.top-left {
-    left: -5px;
-    top: -5px;
-    cursor: nwse-resize;
+.dot:hover {
+    background-color: var(--selection-color);
 }
 
-.resizer.top-right {
-    right: -5px;
-    top: -5px;
-    cursor: nesw-resize;
+.dot.left-top {
+    top: var(--offset);
+    left: var(--offset);
+    /* cursor: nw-resize; */
 }
 
-.resizer.bottom-left {
-    left: -5px;
-    bottom: -5px;
-    cursor: nesw-resize;
+.dot.left-bottom {
+    bottom:var(--offset);
+    left: var(--offset);
+    /* cursor: sw-resize; */
 }
 
-.resizer.bottom-right {
-    right: -5px;
-    bottom: -5px;
-    cursor: nwse-resize;
+.dot.right-top {
+    top: var(--offset);
+    right: var(--offset);
+    /* cursor: ne-resize; */
+}
+
+.dot.right-bottom {
+    bottom: var(--offset);
+    right: var(--offset);
+    /* cursor: se-resize; */
+}
+
+.dot.top-mid {
+    top: var(--offset);
+    left: calc(50% + var(--offset));
+    /* cursor: n-resize; */
+}
+
+.dot.left-mid {
+    left: var(--offset);
+    top: calc(50% + var(--offset));
+    /* cursor: w-resize; */
+}
+
+.dot.right-mid {
+    right: var(--offset);
+    top: calc(50% + var(--offset));
+    /* cursor: e-resize; */
+}
+
+.dot.bottom-mid {
+    bottom: var(--offset);
+    left: calc(50% + var(--offset));
+    /* cursor: s-resize; */
+}
+
+.dot.rotate {
+    top: -30px;
+    left: calc(50% + var(--offset));
+    border-radius: 50%;
+    cursor: url('../images/rotate_ccw.png'), auto;
+}
+
+.dot.rotate:before {
+    content: '';
+    position: absolute;
+    width: 1px;
+    height: 20px;
+    background-color: var(--selection-color);
+    top: 8px;
+    left: 50%;
+    transform: translate(-50%, 0%);
+    z-index: -1;
+    pointer-events: none;
 }
