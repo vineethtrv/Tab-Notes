@@ -15,47 +15,54 @@
 <body>
     <div id="toolbar">
         <!-- Font family -->
-        <select class="ql-font"></select>
+        <select data-tooltip="Font Family" class="ql-font"></select>
         <!-- Add font size dropdown -->
-        <select class="ql-size">
+        <select data-tooltip="Font Size"  class="ql-size">
             <option value="small"></option>
             <option selected></option>
             <option value="large"></option>
             <option value="huge"></option>
         </select>
         <!-- Add Styles-->
-        <button class="ql-bold"></button>
-        <button class="ql-italic"></button>
-        <button class="ql-underline"></button>
-        <button class="ql-strike"></button>
+        <button data-tooltip="bold" class="ql-bold"></button>
+        <button data-tooltip="Italic"  class="ql-italic"></button>
+        <button data-tooltip="underline"  class="ql-underline"></button>
+        <button data-tooltip="Strike"  class="ql-strike"></button>
         <!-- Text Align -->
-        <select class="ql-align"></select>
+        <select data-tooltip="Text Alignment" class="ql-align"></select>
 
         <!-- Heading -->
-        <button class="ql-header" value="1"></button>
-        <button class="ql-header" value="2"></button>
+        <button  data-tooltip="Heading 1"  class="ql-header" value="1"></button>
+        <button data-tooltip="Heading 2"  class="ql-header" value="2"></button>
         <!-- List Styles-->
-        <button class="ql-list" value="ordered"></button>
-        <button class="ql-list" value="bullet"></button>
+        <button  data-tooltip="Ordered List"  class="ql-list" value="ordered"></button>
+        <button  data-tooltip="Unordered List" class="ql-list" value="bullet"></button>
 
         <!-- Block -->
-        <button class="ql-code-block"></button>
-        <button class="ql-link"></button>
+        <button  data-tooltip="Code" class="ql-code-block"></button>
+        <button  data-tooltip="Hyper Link" class="ql-link"></button>
 
-        <button class="ql-clean"></button>
+        <button  data-tooltip="Remove Text Style" class="ql-clean"></button>
 
 
         <!-- Shapes -->
-        <button class="btn-draw-shape" data-shape="rect"></button>
-        <button class="btn-draw-shape" data-shape="rounded"></button>
-        <button class="btn-draw-shape" data-shape="ellipse"></button>
-        <button class="btn-draw-shape" data-shape="line"></button>
-        <button class="btn-draw-shape" data-shape="arrow"></button>
+        <button data-tooltip="Draw Rectangle" class="btn-draw-shape" data-shape="rect"></button>
+        <button data-tooltip="Draw Rounded Rectangle" class="btn-draw-shape" data-shape="rounded"></button>
+        <button data-tooltip="Draw Ellipse" class="btn-draw-shape" data-shape="ellipse"></button>
+        <button data-tooltip="Draw Line" class="btn-draw-shape" data-shape="line"></button>
+        <button data-tooltip="Draw Arrow" class="btn-draw-shape" data-shape="arrow">
+            <i class="arrow-icon"></i>
+        </button>
 
 
         <!-- Colors -->
-        <select class="ql-color"></select>
-        <select class="ql-background"></select>
+        <span data-tooltip="Text Color">
+            <select class="ql-color"></select>
+        </span>
+        <span data-tooltip="Text Background">
+            <select class="ql-background"></select>
+        </span>
+        
 
         <!-- Stroke -->
         <span class="stroke-size">
@@ -63,9 +70,9 @@
             <input id="stroke-size-control" value="1" type="number" min="0" max="30">
         </span>
 
-        
+
         <!-- Theme -->
-        <button class="btn-theme dropdown-toggle">
+        <button  data-tooltip="Theme" class="btn-theme dropdown-toggle">
             <span class="icon-theme">
                 <span class="icon-brush"></span>
             </span>
