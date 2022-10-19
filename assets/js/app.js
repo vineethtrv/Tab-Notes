@@ -2,6 +2,7 @@ let newNotes = '';
 let theme = '';
 let shapeCollection = [];
 const customThemeEl = document.getElementById('custom-theme');
+const clearAllPopup = document.getElementById('clear-all-confirmation');
 var quill = new Quill('#editor', {
       theme: 'snow',
     modules: {
@@ -85,6 +86,41 @@ const removeShapeStore = (shapeId)=> {
     saveShape();
 }
 
+// Delete Button
+document.getElementById('delete-shape').addEventListener("click", e => {
+    deleteShape()
+})
+
+
+
+
+// Clear all Popup
+
+// Show Clear all Popup
+document.getElementById('clear-all-q').addEventListener("click", e => {
+    clearAllPopup.classList.add('show')
+    document.querySelector('body').classList.add('is-clear-all');
+})
+// Cancel Clear all Popup
+document.getElementById('clear-all-c').addEventListener("click", e => {
+    clearAllPopup.classList.remove('show')
+    document.querySelector('body').classList.remove('is-clear-all');
+})
+
+// Clear All notes
+document.getElementById('clear-all').addEventListener("click", e => {
+    // Remove all Shapes;
+    document.querySelectorAll('.shape').forEach(shp => shp.remove());
+    shapeCollection = [];
+    saveShape();
+    // Remove all Notes
+    localStorage.setItem('notes', '');
+    quill.setContents('');
+
+    // Close Clear all Popup
+    clearAllPopup.classList.remove('show');
+    document.querySelector('body').classList.remove('is-clear-all');
+})
 
 
 

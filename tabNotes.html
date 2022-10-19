@@ -40,7 +40,6 @@
 
         <!-- Block -->
         <button  data-tooltip="Code" class="ql-code-block"></button>
-        <button  data-tooltip="Hyper Link" class="ql-link"></button>
 
         <button  data-tooltip="Remove Text Style" class="ql-clean"></button>
 
@@ -70,12 +69,22 @@
             <input id="stroke-size-control" value="1" type="number" min="0" max="30">
         </span>
 
+        <!-- Delete Shape -->
+        <button id="delete-shape" data-tooltip="Delete Shape">
+            <i class="icon-trash"></i>
+        </button>
+
+
+        <!-- Clear All Note -->
+        <button id="clear-all-q" data-tooltip="Clear All">
+            <i class="icon-clear-all"></i>
+        </button>
 
         <!-- Theme -->
         <button  data-tooltip="Theme" class="btn-theme dropdown-toggle">
-            <span class="icon-theme">
-                <span class="icon-brush"></span>
-            </span>
+            <i class="icon-theme">
+                <i class="icon-brush"></i>
+            </i>
             <ul class="dropdown-menu">
                 <li class="active" data-value="paper-white">Paper White</li>
                 <li data-value="dark">Dark</li>
@@ -114,6 +123,33 @@
         </div>
     </div>
     <!--End Custom theme popup  -->
+
+
+
+
+    <!-- ClearAll confirmation -->
+    <div id="clear-all-confirmation" class="popup">
+        <header class="popup-header">
+            <h4>Are you sure you want to clear all Notes?</h4>
+        </header>
+        <div class="popup-body">
+            <p>Here's what happens when you cleared the Notes:</p>
+            <ul>
+                <li>This notes will no longer be accessible Tab Notes</li>
+                <li>Notes will cleared from all tabs</li>
+                <li>Undo Option will not be available for Shapes</li>
+            </ul>
+        </div>
+        <footer class="popup-footer">
+            <button id="clear-all" class="btn btn-danger">I Understand, Clear All Notes</button>
+            <button id="clear-all-c" class="btn btn-secondary">Cancel</button>
+        </footer>
+    </div>
+    <!--End ClearAll confirmation -->
+
+
+
+
 
     <!-- Include the Quill library -->
     <script src="assets/js/quill.min.js"></script>

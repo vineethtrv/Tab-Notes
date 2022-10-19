@@ -334,7 +334,18 @@ const drawShape = ()=> {
 }
 
 
+const deleteShape = () => {
+    if (document.querySelector('.selection-box')) {
+        document.querySelector('.selection-box').parentElement.remove();
 
+        // remove shape from Store
+        removeShapeStore(selectedShape.id)
+
+        // Remove selection style 
+        isSelected = false;
+        document.body.classList.remove('is-selected');
+    }
+}
 
 
 /**
@@ -352,19 +363,12 @@ canvas.addEventListener('click', function (e) {
 
 // Remove Shape from Canvas
 window.addEventListener("keydown", function (o) {
-
-    
     if (o.keyCode === 46 || o.keyCode === 8) {
-        if (document.querySelector('.selection-box')) {
-            document.querySelector('.selection-box').parentElement.remove();
-
-            // remove shape from Store
-            removeShapeStore(selectedShape.id)
-
-            // Remove selection style 
-            isSelected = false;
-            document.body.classList.remove('is-selected');
-        }
+        deleteShape()
     }
 });
+
+
+
+
 
