@@ -240,6 +240,10 @@ restoreShapes();
 // Theme restore
 restoreTheme();
 
+
+// Color Filling
+getFillColor();
+
 // Check tabs are sync with Notes
 window.addEventListener("storage", (event) => {
     if (event.storageArea != localStorage) return;

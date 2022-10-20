@@ -2,6 +2,22 @@
     box-sizing: border-box;
 }
 
+*::-webkit-scrollbar {
+    width: 10px;
+}
+
+*::-webkit-scrollbar-track {
+    background: #0001;
+}
+
+*::-webkit-scrollbar-thumb {
+    background: var(--note-bg);
+    box-shadow: inset 10px 0 #0005;
+    border-radius: 20px;
+}
+*::-webkit-scrollbar-thumb:hover{
+    box-shadow: inset 10px 0 #0007;
+}
 
 body {
     margin: 0;
@@ -101,6 +117,9 @@ li {
     margin-left: 15px;
 }
 
+.ql-snow .ql-picker.ql-expanded .ql-picker-options{
+    z-index: 100;
+}
 
 .stroke-size {
     display: none;
@@ -549,7 +568,7 @@ label {
 .btn-draw-shape {
     position: relative;
 }
-.btn-draw-shape.active {
+.btn-draw-shape.active , .btn-draw-shape:hover {
     --text: #06c;
 }
 [data-shape="rect"]::before , [data-shape="rounded"]::before , [data-shape="ellipse"]::before{

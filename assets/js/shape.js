@@ -20,7 +20,6 @@ function draw(model){
     if (!isStartDrawingLCH){
         isStartDrawingLCH = true;
         createShape();
-        getFillColor();
     }
 }
 
