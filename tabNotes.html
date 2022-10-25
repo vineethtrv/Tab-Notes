@@ -10,6 +10,43 @@
     <title>Tab Notes</title>
 </head>
 <body>
+
+    <nav class="tab-nav">
+        <div class="tab-item active">
+            <input class="tab-control" type="text" value="Note 1">
+            <button data-tooltip="Delete this notes" class="tab-remove"><i class="icon-trash"></i></button>
+        </div>
+        <div class="tab-item">
+            <input class="tab-control" type="text" value="Note 2">
+            <button class="tab-remove"><i class="icon-trash"></i></button>
+        </div>
+        <div class="tab-item">
+            <input class="tab-control" type="text" value="Note 3">
+            <button class="tab-remove"><i class="icon-trash"></i></button>
+        </div>
+
+        <button class="tab-new">+</button>
+
+        <!-- Theme -->
+        <button data-tooltip="Theme" class="btn-theme dropdown-toggle">
+            <i class="icon-theme">
+                <i class="icon-brush"></i>
+            </i>
+            <ul class="dropdown-menu">
+                <li class="active" data-value="paper-white">Paper White</li>
+                <li data-value="dark">Dark</li>
+                <li data-value="owl">Owl</li>
+                <li data-value="quiet">Quiet</li>
+                <li data-value="coffee">Coffee</li>
+                <li data-value="Sky">Sky</li>
+                <li data-value="board">Board</li>
+                <li data-value="custom">Custom</li>
+            </ul>
+        </button>
+
+    </nav>
+
+
     <div id="toolbar">
         <!-- Font family -->
         <select data-tooltip="Font Family" class="ql-font"></select>
@@ -77,22 +114,7 @@
             <i class="icon-clear-all"></i>
         </button>
 
-        <!-- Theme -->
-        <button  data-tooltip="Theme" class="btn-theme dropdown-toggle">
-            <i class="icon-theme">
-                <i class="icon-brush"></i>
-            </i>
-            <ul class="dropdown-menu">
-                <li class="active" data-value="paper-white">Paper White</li>
-                <li data-value="dark">Dark</li>
-                <li data-value="owl">Owl</li>
-                <li data-value="quiet">Quiet</li>
-                <li data-value="coffee">Coffee</li>
-                <li data-value="Sky">Sky</li>
-                <li data-value="board">Board</li>
-                <li data-value="custom">Custom</li>
-            </ul>
-        </button>
+
 
     </div>
 

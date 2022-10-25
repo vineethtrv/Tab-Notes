@@ -42,6 +42,8 @@ ul {
 li {
     margin-bottom: 5px;
 }
+
+/* Theme */
 .dark {
     --note-bg: #333538;
     --text: #fff;
@@ -87,8 +89,119 @@ li {
     border-color: #0002;
 }
 
+
+/* Tabs */
+
+.tab-nav{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    background: #0001;
+    border-bottom: 1px solid #0003;
+}
+
+.tab-item {
+    opacity: 0.3;
+    padding: 5px 8px;
+    width: calc(100% / 11);
+    display: flex;
+    align-items: center;
+    border: 1px solid #0000;
+    border-bottom: none;
+    border-radius: 4px 4px 0 0;
+    cursor: pointer;
+    position: relative;
+    margin-top: 2px;
+    top: 1px;
+    transition: opacity 0.2s ease-in;
+}
+.active.tab-item {
+    opacity: 1;
+    background: var(--note-bg);
+    box-shadow: inset 0 40px #0002;
+    border-color: #0004;
+    z-index: 2;
+}
+.tab-item:not(.active):hover {
+    background: #0003;
+    opacity: 0.5;
+}
+
+.tab-item:not(.active)::after {
+    content: '';
+    position: absolute;
+    background: var(--text);
+    opacity: 0.5;
+    width: 1px;
+    height: 70%;
+    right: -2px;
+    top: 15%;
+}
+
+.tab-control{
+    outline: none;
+    box-shadow: none;
+    width: 100%;
+    border: none;
+    background: #0000;
+    pointer-events: none;
+    color: var(--text);
+}
+
+.active.tab-item .tab-control {
+    pointer-events: initial;
+}
+.active.tab-item .tab-remove {
+    display: block;
+}
+
+.tab-remove {
+    border: none;
+    background: #0000;
+    cursor: pointer;
+    border-radius: 4px;
+    padding: 0;
+    width: 20px;
+    height: 20px;
+    display: none;
+}
+.tab-remove:hover {
+    background: #0002;
+}
+.tab-remove:hover .icon-trash{
+    --text: #d70c2c
+}
+
+.tab-new {
+    margin: 0 5px;
+    width: 28px;
+    height: 28px;
+    background: #0004;
+    border: none;
+    color: var(--text);
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 20px;
+    font-weight: 100;
+    font-family: Arial, Helvetica, sans-serif;
+    transition: 0.2s ease-in;
+}
+.tab-new:hover {
+    background: #0006;
+}
+
+.btn-theme {
+    border: none;
+    background: none;
+    outline: none;
+    cursor: pointer;
+    margin-left: auto;
+    margin-right: 10px;
+}
+
+/* Editor */
 #editor{
-    height: calc(100vh - 66px);
+    height: calc(100vh - 95px);
     border: none;
     overflow-y: auto;
 }
@@ -108,14 +221,11 @@ li {
         align-items: center;
     }
     #editor {
-        height: calc(100vh - 41px);
+        height: calc(100vh - 75px);
     }
 }
 
-.ql-snow.ql-toolbar button.btn-theme{
-    padding: 3px 0 0;
-    margin-left: 15px;
-}
+
 
 .ql-snow .ql-picker.ql-expanded .ql-picker-options{
     z-index: 100;
@@ -412,7 +522,7 @@ li {
 
 .dropdown-menu {
     position: absolute;
-    left: 0;
+    right: 0;
     top: 100%;
     list-style: none;
     padding: 0;
@@ -420,7 +530,6 @@ li {
     background: var(--note-bg);
     box-shadow: 0 3px 8px #0002;
     z-index: 1000;
-    /* transition: 0.2s ease-in; */
     overflow: hidden;
     max-height: 0;
 }
